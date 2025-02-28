@@ -1,8 +1,11 @@
+'use client';
 import Link from 'next/link';
-import { PlayerAPI } from '../data/playerApi';
+import { Player, PlayerAPI } from '@/app/data/playerApi';
+import { useState } from 'react';
 
 export default function Roster() {
-  const players = PlayerAPI.all();
+  const [players] = useState<Player[]>(PlayerAPI.all());
+
   return (
     <main>
       <div>
@@ -10,12 +13,17 @@ export default function Roster() {
       </div>
       <div>
         <ul>
-          {players.map((p) => (
-            <li key={p.number}>
-              <Link href={`/roster/${p.number}`}>{p.name}</Link>
-            </li>
-          ))}
+          {players
+            ? players.map((p) => (
+                <li key={p.number}>
+                  <Link href={`/roster/${p.number}`}>{p.name}</Link>
+                </li>
+              ))
+            : 'No players'}
         </ul>
+      </div>
+      <div>
+        <Link href={'/roster/new'}>Add new player</Link>
       </div>
     </main>
   );

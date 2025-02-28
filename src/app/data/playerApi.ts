@@ -1,4 +1,4 @@
-type Player = {
+export type Player = {
   number: number;
   name: string;
   position: string;
@@ -20,4 +20,7 @@ export const PlayerAPI = {
     const isPlayer = (p: Player) => p.number === id;
     return this.players.find(isPlayer);
   },
+  addPlayer: function (player: Player) {
+    this.players.push(player)
+  }
 };
